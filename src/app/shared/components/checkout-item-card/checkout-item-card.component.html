@@ -1,0 +1,34 @@
+<div>
+    <div [routerLink]="['/product', _product.id, _product.goodPageUrl || '']" class="order-face">
+        <img *ngIf="_product.imageUrl as thumbnail;else noImage" [src]="thumbnail">
+        <ng-template #noImage>
+            <img src="assets/images/product-placeholder-small.png">
+        </ng-template>
+    </div>
+    <div class="order-text">
+        <div>
+            <h3 [routerLink]="['/product', _product.id, _product.goodPageUrl || '']">{{_product.goodName}}</h3>
+            <div class="metadata-container">
+                <ul>
+                    <li>کد کالا : 0321456987</li>
+                    <li>برند : ایساکو</li>
+                </ul>
+            </div>
+        </div>
+        <div>
+            <span class="item-price">
+                <ins>{{_product.finalPrice | iRCurrencyPipe}}</ins>
+                <del *ngIf="_product.discount">{{_product.price | iRCurrencyPipe}}</del>
+            </span>
+            <app-product-counter [(ngModel)]="productCount" (ngModelChange)="addToBasket($event)"></app-product-counter>
+        </div>
+    </div>
+    <button type="button" class="btn remove-order" (click)="removeProduct()">
+        <i class="icon-remove-basket"></i>
+    </button>
+</div>
+<nav>
+    <a [routerLink]="['/home']">بدنه</a>
+    <a [routerLink]="['/home']">گلگیر</a>
+    <a [routerLink]="['/home']">ایران خودرو</a>
+</nav>

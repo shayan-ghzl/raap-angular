@@ -1,0 +1,75 @@
+.hero-section {
+    position: relative;
+    background-image: url("../../assets/images/car.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+:host {
+    ::ng-deep {
+        @import "swiper/scss";
+        @import "swiper/scss/pagination";
+        @import "swiper/scss/navigation";
+        // customize swiper slider
+        --swiper-pagination-color: var(--ion-color-primary);
+        .swiper-wrapper {
+            padding: 1rem 0 3rem 0;
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+            background: var(--ion-color-medium);
+            padding: 1rem 0.8rem;
+            color: #fff;
+            font-weight: bold;
+            border-radius: 5px;
+            top: calc(50% - 2rem);
+        }
+    }
+}
+section.trend-products,
+section.trend-posts,
+section.trend-categories {
+    padding: 0 4%;
+    margin: 2rem 0;
+}
+
+// -------------------------------------------
+@media (max-width: 1400px) {
+}
+@media (max-width: 1200px) {
+}
+// desktop version
+@media (min-width: 993px) and (min-height: 701px) {
+    .hero-section {
+        height: 95vh;
+        display: flex;
+        flex-direction: column;
+    }
+    app-primary-menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100%;
+    }
+}
+// mobile version
+@media (max-width: 992px), (max-height: 700px) {
+
+}
+@media (max-width: 768px) {
+
+}
+@media (max-width: 576px) {
+    section.trend-products,
+    section.trend-posts,
+    section.trend-categories {
+        padding-right: 0;
+        padding-left: 0;
+        app-page-title {
+            display: block;
+            padding: 0 4%;
+        }
+    }
+}
+@media (max-width: 357px) {
+}

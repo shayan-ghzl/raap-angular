@@ -1,0 +1,82 @@
+<div id="page">
+    <div id="site-content">
+        <header class="hero-section">
+            <app-bottom-navigation></app-bottom-navigation>
+            <app-primary-menu [ngClass]="{'show': isPrimaryMenuActive}"
+                (hamburgerPressed)="isPrimaryMenuActive=!isPrimaryMenuActive" [menu]="primaryMenu"></app-primary-menu>
+            <!-- <app-accessibility (hamburgerPressed)="isPrimaryMenuActive=!isPrimaryMenuActive" *ngIf="ordersList$ | async as result" [productsList]="result">
+            </app-accessibility> -->
+            <app-accessibility (hamburgerPressed)="isPrimaryMenuActive=!isPrimaryMenuActive"
+                [productsList]="ordersList">
+            </app-accessibility>
+            <app-promotion-offer></app-promotion-offer>
+        </header>
+        <main class="main-content" role="main">
+            <section class="trend-products">
+                <app-page-title>
+                    پرفروش ترین ها
+                    <a [routerLink]="['/archive']">
+                        <i class="icon-plus"></i>
+                        نمایش بیشتر
+                    </a>
+                </app-page-title>
+                <!-- <swiper [config]="config" (swiper)="onSwiper($event)" (slideChange)="onSlideChange()"> -->
+                <swiper *ngIf="hasTrendProducts;else emptyMessage" [config]="config">
+                    <ng-template swiperSlide *ngFor="let product of trendProducts">
+                        <app-product-card [product]="product"
+                            [productCount]="product.id | checkProductCount:ordersList"></app-product-card>
+                    </ng-template>
+
+                    <ng-container *ngIf="trendProducts.length==0">
+                        <ng-template swiperSlide *ngFor="let item of [1,2,3,4,5,6]">
+                            <app-product-card-placeholder></app-product-card-placeholder>
+                        </ng-template>
+                    </ng-container>
+                </swiper>
+                <ng-template #emptyMessage>
+                    <app-empty-message>محصولی یافت نشد !</app-empty-message>
+                </ng-template>
+            </section>
+            <!-- <section *ngIf="trendProducts.length" class="trend-posts">
+                <app-page-title>
+                    مقالات
+                    <a [routerLink]="['/archive']">
+                        <i class="icon-plus"></i>
+                        نمایش بیشتر
+                    </a>
+                </app-page-title>
+                <swiper [config]="config">
+                    <ng-template swiperSlide *ngFor="let product of trendProducts">
+                   <app-post-card [post]="product"></app-post-card>
+                    </ng-template>
+                </swiper>
+            </section> -->
+            <section class="trend-categories">
+                <app-page-title>
+                    دسته بندی ها
+                    <a [routerLink]="['/category']">
+                        <i class="icon-plus"></i>
+                        نمایش بیشتر
+                    </a>
+                </app-page-title>
+                <swiper *ngIf="hasTrendCategories;else emptyMessage2" [config]="config">
+                    <ng-template swiperSlide *ngFor="let category of trendCategories">
+                        <app-category-card [category]="category"></app-category-card>
+                    </ng-template>
+
+                    <ng-container *ngIf="trendCategories.length==0">
+                        <ng-template swiperSlide *ngFor="let item of [1,2,3,4,5,6]">
+                            <app-category-card-placeholder></app-category-card-placeholder>
+                        </ng-template>
+                    </ng-container>
+                </swiper>
+                <ng-template #emptyMessage2>
+                    <app-empty-message>دسته بندی یافت نشد !</app-empty-message>
+                </ng-template>
+
+            </section>
+
+        </main>
+        <app-footer></app-footer>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<form [formGroup]="searchForm" (ngSubmit)="submitHandler()" autocomplete="off">
+    <div class="input-group">
+        <button class="btn btn-primary" [disabled]="!searchForm.valid">
+            <i class="icon-search-icon"></i>
+        </button>
+        <div class="group-grow">
+            <input class="form-control" type="search" autocomplete="off" placeholder="محصول مورد نظر ..."
+                formControlName="searchField">
+            <div class="result-container" *ngIf="searchResult.length">
+                <ul>
+                    <li *ngFor="let result of searchResult">
+                        <a [routerLink]="[result.routerLink]">
+                            <i class="icon-search-suggestion-icn"></i>
+                            {{result.name}}<span *ngFor="let category of result.categories">{{category}}</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="recent-searches" *ngIf="recentSearches.length">
+                    جستجو های اخیر :
+                    <div>
+                        <a *ngFor="let recentSearch of recentSearches"
+                            [routerLink]="[recentSearch.routerLink]">{{recentSearch.name}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <select class="form-select" formControlName="searchSelect" *ngIf="searchOption.length">
+            <option *ngFor="let option of searchOption" [value]="option.value">
+                {{option.name}}</option>
+        </select>
+    </div>
+
+
+</form>

@@ -1,0 +1,150 @@
+@use "sass:math";
+@function toRem($value) {
+    $remValue: math.div($value, 16) + rem;
+    @return $remValue;
+}
+section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 24px;
+}
+
+.list-item {
+    &:not(:last-child) {
+        margin-bottom: 24px;
+    }
+}
+
+.report-card {
+    background-color: var(--ion-color-light);
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 10px -3px #0000006e;
+    font-size: 15px;
+    margin-bottom: 24px;
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 20px;
+        border-bottom: 0.0625rem solid rgba(var(--ion-color-medium-rgb), 0.35);
+    }
+    .card-body {
+        ul {
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 5px 20px;
+            }
+            .color-danger {
+                color: var(--ion-color-danger);
+            }
+        }
+    }
+    .card-footer {
+        background-color: var(--ion-color-primary);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 20px;
+        font-weight: bold;
+    }
+}
+:host ::ng-deep {
+    app-form-generator {
+        .form-field {
+            background-color: var(--ion-color-light);
+            border-radius: 20px;
+            box-shadow: 0 0 10px -3px #0000006e;
+            margin-bottom: 24px;
+            label {
+                padding: 8px 20px;
+                font-weight: bold;
+                font-size: 15px;
+                display: block;
+                border-bottom: 0.0625rem solid rgba(var(--ion-color-medium-rgb), 0.35);
+            }
+            .input-group {
+                padding: 8px 20px;
+            }
+            textarea {
+                background-color: var(--ion-color-light);
+                width: 100%;
+                height: 102px;
+                resize: none;
+
+                &::-webkit-scrollbar {
+                    width: 5px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    box-shadow: inset 0 0 5px var(--ion-color-secondary);
+                    border-radius: 10px;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background: rgb(54, 54, 54);
+                    border-radius: 10px;
+                }
+
+                &::-webkit-scrollbar-thumb:hover {
+                    background: var(--ion-color-dark);
+                }
+            }
+            .invalid-feedback {
+                padding: 4px 20px 8px 20px;
+            }
+        }
+        .btn {
+            padding: 0.7rem 1.4rem;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            white-space: nowrap;
+            width: 100%;
+            letter-spacing: -0.5px;
+            .dots-container {
+                padding: 1.4px 0;
+            }
+            // &:active {
+            //     transform: scale(0.98);
+            // }
+        }
+    }
+}
+
+// -------------------------------------------
+@media (max-width: 1400px) {
+}
+@media (max-width: 1200px) {
+}
+// desktop version
+@media (min-width: 993px) and (min-height: 701px) {
+    .list-container {
+        flex: 0 0 calc(66.666666% - 12px);
+        max-width: calc(66.666666% - 12px);
+    }
+    .invoice-container {
+        flex: 0 0 calc(33.333333% - 12px);
+        max-width: calc(33.333333% - 12px);
+    }
+}
+// mobile version
+@media (max-width: 992px), (max-height: 700px) {
+    .list-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+        order: 2;
+    }
+    .invoice-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+        order: 1;
+    }
+}
+
+@media (max-width: 576px) {
+}
+@media (max-width: 357px) {
+}

@@ -1,0 +1,10 @@
+<span class="thumbnail">
+    <img *ngIf="category.imageUrl as thumbnails;else noImage" [src]="thumbnails[0].imageUrl">
+    <ng-template #noImage>
+        <img src="assets/images/product-placeholder.png">
+    </ng-template>
+</span>
+
+<div class="title-container">
+    <h3 class="title">{{category.name}}</h3>
+</div>

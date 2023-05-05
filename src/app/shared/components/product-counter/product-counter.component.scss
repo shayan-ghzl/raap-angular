@@ -1,0 +1,20 @@
+div{
+display: flex;
+align-items: center;
+justify-content: center;
+}
+span {
+    display: block;
+    line-height: 1;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    border: 1px solid var(--ion-color-medium-tint);
+    padding: 0.375rem 0.95rem;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    margin: 0 5px;
+}
+.btn{
+    border-color: var(--ion-color-medium-tint);
+}

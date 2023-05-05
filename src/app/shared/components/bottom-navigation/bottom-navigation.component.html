@@ -1,0 +1,10 @@
+<div *ngIf="secondaryMenu.length">
+    <ul>
+        <li *ngFor="let menuItem of secondaryMenu">
+            <a [routerLink]="[menuItem.routerLink]">
+               <i [class]="menuItem.icon"></i>
+               {{menuItem.name}}
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,15 @@
+<div class="profile-picture">
+    <span>
+        <img [src]="imagePreview">
+    </span>
+    <label class="upload-interface">
+        <input type="file" (change)="fileChanged($event)">
+        <span>
+            <i class="icon-trash-icon"></i>
+            ویرایش
+        </span>
+    </label>
+</div>
+<app-form-generator [formGroupTemplate]="profileFormTemplate" [buttonLabel]="'ذخیره تغییرات'"
+    (submitHandler)="submitHandler($event)">
+</app-form-generator>

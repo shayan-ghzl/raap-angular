@@ -1,0 +1,79 @@
+.cdk-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  left: 0;
+}
+[dir="rtl"] .cdk-visually-hidden {
+  left: auto;
+  right: 0;
+}
+.cdk-overlay-container {
+  position: fixed;
+  z-index: 1000;
+}
+.cdk-overlay-container,
+.cdk-global-overlay-wrapper {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+}
+.cdk-overlay-container,
+.cdk-global-overlay-wrapper {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+}
+.mat-snack-bar-container {
+  color: rgba(255, 255, 255, 0.7);
+  background: #323232;
+  box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+}
+.mat-simple-snackbar {
+  // font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 14px;
+}
+.mat-simple-snackbar-action {
+  color: #ff4081;
+}
+.mat-simple-snackbar-action {
+  line-height: 1;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+}
+.mat-ripple {
+  overflow: hidden;
+  position: relative;
+}
+.mat-button-focus-overlay {
+  background: #000;
+}

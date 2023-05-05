@@ -1,0 +1,63 @@
+<app-page-title>سبد خرید</app-page-title>
+<section>
+    <div class="list-container">
+        <ul>
+            <!-- <div [formGroup]="formGroup">
+                            <span>12,948 تومان</span>
+                            <app-product-counter formControlName="productCounter"></app-product-counter>
+                 </div> -->
+            <li class="list-item" *ngFor="let order of checkoutList$ | async; trackBy:identify">
+                <!-- <app-checkout-item-placeholder *ngIf="index%2==0"></app-checkout-item-placeholder> -->
+                <app-checkout-item-card (beforeUpdateRequest)="buttonSpinnerSwitch=$event" [product]="order"></app-checkout-item-card>
+            </li>
+        </ul>
+    </div>
+    <!-- basketCalculation$ -->
+    <div class="invoice-container">
+
+        <div class="report-card">
+            <ng-container *ngTemplateOutlet="scoopTemplate;context:{calculation: (basketCalculation$ | async)}">
+            </ng-container>
+            <ng-template #scoopTemplate let-calculation="calculation">
+                <div class="card-header">
+                    <span>قیمت کالاها</span>
+                    <span>{{calculation.totalSum}}</span>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>
+                            <span>تعداد</span>
+                            <span>{{calculation.totalCount}}</span>
+                        </li>
+                        <li class="color-danger">
+                            <span>تخفیف</span>
+                            <span>{{calculation.totalDiscount}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer">
+                    <span>مبلغ قابل پرداخت</span>
+                    <span>{{calculation.totalPureSum}}</span>
+                </div>
+            </ng-template>
+        </div>
+        <app-form-generator [formGroupTemplate]="descFormTemplate" [buttonSpinnerSwitch]="buttonSpinnerSwitch" [buttonLabel]="'ثبت نهایی سفارش'"
+            (submitHandler)="submitHandler($event)"></app-form-generator>
+    </div>
+</section>
+
+<ng-template #emptyMessage>
+    <app-empty-message>محصولی یافت نشد !</app-empty-message>
+</ng-template>
+
+<!-- <swiper *ngIf="hasTrendProducts;else emptyMessage" [config]="config">
+        <ng-template swiperSlide *ngFor="let product of trendProducts">
+            <app-product-card [product]="product" [productCount]="product.id | checkProductCount:ordersList"></app-product-card>
+        </ng-template>
+
+        <ng-container *ngIf="trendProducts.length==0">
+            <ng-template swiperSlide *ngFor="let item of [1,2,3,4,5,6]">
+                <app-product-card-placeholder></app-product-card-placeholder>
+            </ng-template>
+        </ng-container>
+    </swiper> -->

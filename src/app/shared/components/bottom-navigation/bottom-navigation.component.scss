@@ -1,0 +1,92 @@
+@use "sass:math";
+@function toRem($value) {
+    $remValue:  math.div($value, 16) + rem;
+    @return $remValue;
+}
+
+:host {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--ion-color-primary);
+    text-align: center;
+    z-index: 3;
+    border-radius: toRem(10) toRem(10) 0 0;
+    box-shadow: 0 0 toRem(10) toRem(-3) var(--ion-color-dark);
+    display: none;
+}
+ul {
+
+    display: flex;
+    width: 100%;
+    padding: toRem(10) 0;
+   
+    font-family: var(--raap-title-font);
+    font-weight: bold;
+    li {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        &:not(:last-child) {
+            border-left: toRem(1) solid rgba(var(--ion-color-dark-rgb), 0.25);
+        }
+    }
+    a {
+        color: var(--ion-color-dark);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+    }
+
+}
+
+// -------------------------------------------
+@media (max-width: 1400px) {
+}
+@media (max-width: 1200px) {
+}
+// desktop version
+@media (min-width: 993px) and (min-height: 701px) {
+
+}
+// mobile version
+@media (max-width: 992px), (max-height: 700px) {
+    :host {
+    display: block;
+    }
+    ul {
+        height: 14vw;
+        font-size: toRem(18);
+        i {
+            font-size: toRem(24);
+            margin-bottom: toRem(4);
+        }
+    }
+
+}
+@media (max-width: 768px) {
+    ul {
+        height: 16vw;
+        font-size: toRem(16);
+        i {
+            font-size: toRem(22);
+            margin-bottom: toRem(2);
+        }
+    }
+
+}
+@media (max-width: 576px) {
+    ul {
+        font-size: toRem(14);
+        i {
+            font-size: toRem(20);
+            margin-bottom: 0;
+        }
+    }
+}
+@media (max-width: 357px) {
+}

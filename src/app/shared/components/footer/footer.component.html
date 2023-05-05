@@ -1,0 +1,69 @@
+<footer>
+    <header>
+        <form [formGroup]="subscriptionForm" (ngSubmit)="submitHandler()" autocomplete="off">
+            <div class="input-group">
+                <button class="btn" type="submit" [disabled]="!subscriptionForm.valid">Join</button>
+                <input formControlName="emailField" class="form-control" type="text" autocomplete="off"
+                    placeholder="Enter Email">
+            </div>
+            <span>Subscribe</span>
+        </form>
+        <nav>
+            <a [routerLink]="['/home']">
+                <i class="icon-facebook-icon"></i>
+                Facebook
+            </a>
+            <a [routerLink]="['/home']">
+                <i class="icon-facebook-icon"></i>
+                Instagram
+            </a>
+        </nav>
+    </header>
+    <div>
+        <section class="quick-access">
+            <div>
+                <h2>درباره رای یدک</h2>
+                <p>با افزایش تنوغع برندها و اطلاعات تخصصی مربوط به کالاها در زمینه قطعات و لوازمیدکی خودرو ُ باعث شده
+                    استعموم مردم قبل از خریدتا حد امکان در مورد محصول مورد نظر خود تحقیق کنند</p>
+            </div>
+            <div>
+                <h2> دسته بندی محصولات</h2>
+                <div class="menu-container column-separation">
+                    <ul>
+                        <li><a href="#">سیستم های الکتریکی</a></li>
+                        <li><a href="#">تجهیزات داخلی</a></li>
+                        <li><a href="#">اکسل و یلوس</a></li>
+                        <li><a href="#">مصرفی </a></li>
+                        <li><a href="#">سیستم های الکتریکی</a></li>
+                        <li><a href="#">تجهیزات داخلی</a></li>
+                        <li><a href="#">اکسل و یلوس</a></li>
+                        <li><a href="#">مصرفی </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div>
+                <h2>تماس با ما </h2>
+                <div class="menu-container">
+                    <ul>
+                        <li>آدرس دفتر مرکزی :</li>
+                        <li>اصفهان . خیابان . بلوار . کوچه . بلوار .مجتمع</li>
+                        <li>تلفن: 031-1234567</li>
+                        <li>همراه: 0913-31234567</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <div class="rights-reserved">
+            <div class="footer-hero-logo" [routerLink]="['/home']">
+                <span class="brand-face">
+                    <img src="assets/images/logo.png">
+                </span>
+                <span class="brand-text">
+                    <h2>RAAP</h2>
+                    <span>spare parts</span>
+                </span>
+            </div>
+            <p>تمام حقوق مادی و معنوی این سایت متعلق به راپ یدک می باشد.</p>
+        </div>
+    </div>
+</footer>

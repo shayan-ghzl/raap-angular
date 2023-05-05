@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'MjCasablanca';
+    src: url("../fonts/ttf/Mj_Casablanca.ttf") format("truetype");
+    font-weight: 400;
+}
+@font-face {
+    font-family: 'MjCasablanca';
+    src: url("../fonts/ttf/Mj_Casablanca-Heavy.ttf") format("truetype");
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'MjCasablanca';
+    src: url("../fonts/ttf/Mj_Casablanca-Light.ttf") format("truetype");
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Samim';
+    src: url("../fonts/eot/Samim-FD.eot");
+    src: url("../fonts/eot/Samim-FD.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/woff2/Samim-FD.woff2") format("woff2"),
+        url("../fonts/woff/Samim-FD.woff") format("woff"),
+        url("../fonts/ttf/Samim-FD.ttf") format("truetype");
+    font-weight: 400;
+}   
+@font-face {
+    font-family: 'Samim';
+    src: url("../fonts/eot/Samim-Bold-FD.eot");
+    src: url("../fonts/eot/Samim-Bold-FD.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/woff2/Samim-Bold-FD.woff2") format("woff2"),
+        url("../fonts/woff/Samim-Bold-FD.woff") format("woff"), url("../fonts/ttf/Samim-Bold-FD.ttf") format("truetype");
+    font-weight: bold;
+}
+@font-face{
+    font-family:'PIF';
+    src:url('../fonts/woff2/mono.woff2') format('woff2'),
+    url('../fonts/woff/mono.woff') format('woff'),
+    url('../fonts/eot/mono.eot') format('eot');
+    font-weight:normal;
+}

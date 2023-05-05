@@ -1,0 +1,38 @@
+<span class="thumbnail" [routerLink]="['/product', product.id, product.pageUrl || '']" [state]="product">
+    <img *ngIf="product.goodImages.length;else noImage" [src]="product.goodImages[0].imageUrl">
+    <ng-template #noImage>
+        <img src="assets/images/product-placeholder.png">
+    </ng-template>
+</span>
+<div class="title-container">
+    <h3 class="title" [routerLink]="['/product',product.id, product.pageUrl || '']" [state]="product">
+        {{product.goodParent?.name}}
+        {{product.brand?.name}}</h3>
+</div>
+
+<div class="desc-container">
+    <p class="desc">{{product.description}}</p>
+</div>
+
+<div class="row-span">
+    <!-- <div class="stock">
+        <i class="icon-ringbell-icon"></i>
+        <span>4 عدد در انبار باقیست</span>
+    </div> -->
+    <span class="item-price">
+        <span class="discount-percentage" *ngIf="product.userGroupPrice!.discount">
+            <del>{{product.userGroupPrice!.price | iRCurrencyPipe}}</del>
+            <span class="badge">10%</span>
+        </span>
+        <ins>{{product.userGroupPrice!.price | iRCurrencyPipe}}</ins>
+    </span>
+</div>
+
+<div class="add-to-card">
+    <button class="btn btn-primary" *ngIf="productCount==0;else addedBefore"
+        (click)="productCount=1;addToBasket(1)">افزودن به سبد خرید</button>
+    <ng-template #addedBefore>
+        <app-product-counter [(ngModel)]="productCount" (ngModelChange)="addToBasket($event)" [romoveOnZero]="true">
+        </app-product-counter>
+    </ng-template>
+</div>

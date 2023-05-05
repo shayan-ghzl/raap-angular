@@ -1,0 +1,113 @@
+:host {
+    position: relative;
+    background-color: var(--ion-color-light);
+    overflow: hidden;
+    box-shadow: 0 0 10px -3px #0000006e;
+    display: block;
+
+    nav {
+        font-size: 0.75rem;
+        padding: 8px 20px;
+        background-color: var(--ion-color-secondary);
+      
+    }
+}
+.order-face {
+    .thumbnail {
+        border-radius: 5px;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+.order-text {
+    display: flex;
+    flex-direction: column;
+
+    > div {
+        &:first-child {
+            flex-grow: 1;
+        }
+        &:last-child {
+            align-self: flex-end;
+            text-align: center;
+        }
+    }
+    h3 {
+        line-height: 1.5;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+    }
+    .item-price {
+        display: block;
+        margin-bottom: 8px;
+    }
+    ins {
+        display: block;
+        font-size: 15px;
+        text-decoration: none;
+    }
+    del {
+        display: block;
+        color: var(--ion-color-danger);
+    }
+}
+.remove-order {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    font-size: 1.5rem;
+}
+
+@media (min-width: 769px) {
+    :host {
+        border-radius: 20px;
+        > div {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+    }
+    .order-face {
+        width: 220px;
+        height: 210px;
+        padding-left: 10px;
+    }
+    .order-text {
+        flex: 0 0 calc(100% - 220px);
+        max-width: calc(100% - 220px);
+        padding-right: 10px;
+        border-right: 0.0625rem solid rgba(var(--ion-color-medium-rgb), 0.35);
+        font-size: 13px;
+
+        h3 {
+            padding-left: 26px;
+            font-size: 1.2rem;
+        }
+    }
+    .remove-order {
+        padding: 10px;
+    }
+}
+@media (max-width: 768px) {
+    :host {
+        border-radius: 15px;
+        > div {
+            padding: 10px;
+        }
+    }
+  
+    .order-text {
+        font-size: 12px;
+
+        h3 {
+            font-size: 1rem;
+            padding-top: 0.5rem;
+        }
+    }
+}

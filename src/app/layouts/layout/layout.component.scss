@@ -1,0 +1,44 @@
+// .site-header{
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     padding-right: calc(9vw + 1.2rem);
+// }
+// app-accessibility{
+//     margin: 0 1.5vw;
+// }
+
+#site-content {
+    background-color: #e6e6e6;
+}
+
+app-primary-menu {
+    height: 100%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+// -------------------------------------------
+@media (max-width: 1400px) {
+}
+@media (max-width: 1200px) {
+}
+// desktop version
+@media (min-width: 993px) and (min-height: 701px) {
+    .main-content {
+        padding: 4rem calc(9vw + 4%) 4rem 4%;
+    }
+}
+// mobile version
+@media (max-width: 992px), (max-height: 700px) {
+    .main-content {
+        padding: 40px 4%;
+    }
+}
+@media (max-width: 768px) {
+}
+@media (max-width: 576px) {
+}
+@media (max-width: 357px) {
+}

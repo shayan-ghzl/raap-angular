@@ -1,0 +1,17 @@
+.spinner {
+    position: relative;
+    display: inline-block;
+}
+.circle {
+    animation: rotate-anim 1.8s infinite linear;
+}
+.rshape {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+@keyframes rotate-anim {
+    100% {
+        transform: rotate(1turn);
+    }
+}

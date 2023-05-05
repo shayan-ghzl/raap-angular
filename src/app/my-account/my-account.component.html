@@ -1,0 +1,102 @@
+<div class="user-jumbotron">
+    <div class="profile-picture">
+        <span class="shadow">
+            <img [src]="imagePreview">
+        </span>
+    </div>
+    <div class="user-text">
+        <ul>
+            <li>
+                <h1>راپ یدک</h1>
+            </li>
+            <li class="badge">کاربر عادی</li>
+            <li>موبایل : 09139638752</li>
+            <li>عضویت در یکشنبه 4 اسفند 1398 ساعت 15:27:32</li>
+        </ul>
+    </div>
+</div>
+<mat-tab-group animationDuration="0ms" selectedIndex="1">
+    <mat-tab label="اطلاعلت شخصی">
+        <div class="button-menu-group">
+            <button type="button" class="btn btn-primary" [routerLink]="['/home']">ویرایش اطلاعات</button>
+            <button type="button" class="btn btn-secondary" [routerLink]="['/home']">تنظیم مجدد رمز عبور </button>
+            <button type="button" class="btn btn-danger" [routerLink]="['/home']">درخواست کاربری خدمات</button>
+        </div>
+        <div class="content-menu-group table-responsive">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <th>نام</th>
+                        <td>راپ</td>
+                    </tr>
+                    <tr>
+                        <th>نام خانوادگی</th>
+                        <td>یدک</td>
+                    </tr>
+                    <tr>
+                        <th>شماره موبایل</th>
+                        <td>09103628462</td>
+                    </tr>
+                    <tr>
+                        <th>تاریخ عضویت</th>
+                        <td>15:27:32 یکشنبه 4 اسفند 1398 ساعت</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </mat-tab>
+    <mat-tab label="سفارشات من">
+        <cdk-accordion class="my-orders-accordion">
+            <cdk-accordion-item *ngFor="let order of myOrders; let index = index;" #accordionItem="cdkAccordionItem"
+                role="button" tabindex="0" [attr.aria-expanded]="accordionItem.expanded"
+                [attr.aria-controls]="'accordion-body-' + index">
+                <div class="accordion-item-header shadow" (click)="accordionItem.toggle()">
+                    <div>
+                        <span>{{index+1}})</span>
+                        <div>
+                            <span>{{order.due_date}}</span>
+                            <span class="order-status">{{order.state}}</span>
+                        </div>
+                    </div>
+                    <span>{{order.total_price | iRCurrencyPipe}}</span>
+                </div>
+                <div class="accordion-item-body table-responsive shadow" role="region"
+                    [style.display]="accordionItem.expanded ? '' : 'none'"
+                    [attr.aria-labelledby]="'accordion-header-' + index">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>نام کالا</th>
+                                <th>تعداد</th>
+                                <th>قیمت</th>
+                                <th>تخفیف</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>چراغ جلو سمت چپ پژو</td>
+                                <td>1</td>
+                                <td>86،650 تومان</td>
+                                <td>130 تومان</td>
+                            </tr>
+                            <tr>
+                                <td>چراغ جلو سمت چپ پژو</td>
+                                <td>1</td>
+                                <td>86،650 تومان</td>
+                                <td>130 تومان</td>
+                            </tr>
+                            <tr>
+                                <td>چراغ جلو سمت چپ پژو</td>
+                                <td>1</td>
+                                <td>86،650 تومان</td>
+                                <td>130 تومان</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </cdk-accordion-item>
+        </cdk-accordion>
+
+
+    </mat-tab>
+</mat-tab-group>

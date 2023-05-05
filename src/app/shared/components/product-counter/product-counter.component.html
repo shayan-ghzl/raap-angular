@@ -1,0 +1,9 @@
+<div>
+    <button type="button" [disabled]="disableAdd" class="btn" [ngClass]="{'btn-primary' : !disableAdd}" (click)="addition()">
+        <i class="icon-plus"></i>
+    </button>
+    <span>{{count}}</span>
+    <button type="button" [disabled]="disableSubtract" class="btn" [ngClass]="{'btn-primary' : !disableSubtract}" (click)="subtraction()">
+        <i [class]="(romoveOnZero) ? (count<=1) ? 'icon-trash-icon' : 'icon-minus' : 'icon-minus'"></i>
+    </button>
+</div>

@@ -1,0 +1,17 @@
+<app-page-title-tabs></app-page-title-tabs>
+
+<div class="list-container" *ngIf="hasProducts;else emptyMessage">
+    <ul>
+        <li *ngFor="let product of products">
+            <app-product-card [product]="product" [productCount]="product.id | checkProductCount:ordersList"></app-product-card>
+        </li>
+        <ng-container *ngIf="products.length==0">
+            <li *ngFor="let item of [1,2,3,4,5,6]">
+                <app-product-card-placeholder></app-product-card-placeholder>
+            </li>
+        </ng-container>
+    </ul>
+</div>
+<ng-template #emptyMessage>
+   <app-empty-message>محصولی یافت نشد !</app-empty-message>
+</ng-template>

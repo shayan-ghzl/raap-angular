@@ -1,0 +1,74 @@
+<header>
+    <div class="yellow-box">
+        <div class="brand">
+            <button type="button" class="btn hamburger-btn" (click)="ShowMobileMenu.emit()">
+                <i class="icon-hamburger-icon"></i>
+            </button>
+            <span>
+                <h2>RAAP</h2>
+                <p>spare parts</p>
+            </span>
+        </div>
+        <div (mouseleave)="blackMovmentDeactive()" *ngIf="menu.length" class="lvl-one-menu-container">
+            <span class="black-movment" #black_movment>
+                <svg class="custom-radius" width="15" height="15" viewBox="0 0 15 15">
+                    <path d="M533,404.793v15h15S533,419.793,533,404.793Z" transform="translate(-533 -404.793)" />
+                </svg>
+                <svg class="custom-radius" width="15" height="15" viewBox="0 0 15 15">
+                    <path d="M533,419.793v-15h15S533,404.793,533,419.793Z" transform="translate(-533 -404.793)" />
+                </svg>
+            </span>
+            <ul>
+                <li *ngFor="let menuItem of menu" [ngClass]="{'active': menuItem.isActive}"
+                    (mouseenter)="blackMovmentActive($event, menuItem)">
+                    <ng-container *ngIf="menuItem.children.length;else otherWise1">
+                        <a [collapse]="childrenPack1" [routerLink]="[menuItem.routerLink]">
+                            {{menuItem.name}}
+                            <i class="icon-left-sidebar-icon"></i>
+                        </a>
+                        <div collapseContent #childrenPack1="collapseContent" class="black-box">
+                            <span class="inside-logo">
+                                <img src="assets/images/logo.png">
+                            </span>
+                            <div class="lvl-two-menu-container">
+                                <ul>
+                                    <li class="margin-space-top"></li>
+                                    <li *ngFor="let menuItem2 of menuItem.children"
+                                        [ngClass]="{'active': menuItem2.isActive}">
+                                        <ng-container *ngIf="menuItem2.children.length;else otherWise2">
+                                            <a [collapse]="childrenPack2" [routerLink]="[menuItem2.routerLink]">
+                                                {{menuItem2.name}}
+                                            </a>
+                                            <div collapseContent #childrenPack2="collapseContent" class="gray-box">
+                                                <div class="lvl-three-menu-container">
+                                                    <ul>
+                                                        <li *ngFor="let menuItem3 of menuItem2.children">
+                                                            <a [routerLink]="[menuItem3.routerLink]">
+                                                                {{menuItem3.name}}
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-template #otherWise2>
+                                            <a [routerLink]="[menuItem2.routerLink]">
+                                                {{menuItem2.name}}
+                                            </a>
+                                        </ng-template>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="margin-space-bottom"></div>
+                        </div>
+                    </ng-container>
+                    <ng-template #otherWise1>
+                        <a [routerLink]="[menuItem.routerLink]">
+                            {{menuItem.name}}
+                        </a>
+                    </ng-template>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

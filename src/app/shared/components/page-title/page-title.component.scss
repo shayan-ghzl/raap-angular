@@ -1,0 +1,29 @@
+@use "sass:math";
+@function toRem($value) {
+    $remValue:  math.div($value, 16) + rem;
+    @return $remValue;
+}
+div{
+    border-bottom: 0.0625rem solid rgba(var(--ion-color-medium-rgb) , 0.35);
+    font-weight: bold;
+    font-family: var(--raap-title-font);
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+h1{
+    border-bottom: toRem(4) solid var(--ion-color-primary);
+    display: inline-block;
+    padding-bottom: toRem(8);
+    margin: 0;
+    font-size: 2rem;
+}
+:host ::ng-deep{
+    a{
+    }
+    i{
+        margin-left: 5px;
+        font-size: 12px;
+    }
+}

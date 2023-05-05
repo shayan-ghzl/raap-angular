@@ -1,0 +1,20 @@
+<div id="page">
+    <div id="site-content">
+        <header class="site-header">
+            <app-bottom-navigation></app-bottom-navigation>
+            <app-primary-menu class="layout-style" [ngClass]="{'show': isPrimaryMenuActive}"
+                (hamburgerPressed)="isPrimaryMenuActive=!isPrimaryMenuActive" [menu]="primaryMenu"></app-primary-menu>
+            <!-- <app-accessibility class="layout-style" *ngIf="ordersList$ | async as result" [productsList]="result"
+                (hamburgerPressed)="isPrimaryMenuActive=!isPrimaryMenuActive">
+            </app-accessibility> -->
+            <app-accessibility class="layout-style" [productsList]="ordersList"
+                (hamburgerPressed)="isPrimaryMenuActive=!isPrimaryMenuActive">
+            </app-accessibility>
+        </header>
+        <main class="main-content" role="main">
+            <!-- <router-outlet (activate)="handleRouterActivation($event)"></router-outlet> -->
+            <router-outlet></router-outlet>
+        </main>
+        <app-footer class="layout-style"></app-footer>
+    </div>
+</div>

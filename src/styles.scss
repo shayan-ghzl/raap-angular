@@ -1,0 +1,55 @@
+@import "./assets/scss/variables.scss";
+// ---------------CSS-REBOOT---------------
+@import "./assets/scss/bootstrap-reboot.rtl.css";
+@import "./assets/scss/btn-reboot.scss";
+@import "./assets/scss/grid.scss";
+@import "./assets/scss/form-control.scss";
+@import "./assets/scss/placeholder.scss";
+@import "./assets/scss/table.scss";
+@import "./assets/scss/spinner.scss";
+
+.badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  // font-size: .75em;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--ion-color-light);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}
+.shadow {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+.shadow-none {
+  box-shadow: none !important;
+}
+// ---------------FONTS---------------
+@import "./assets/scss/fonts.scss";
+@import "./assets/fonts/font-icon/style.css";
+
+@media (max-width: 992px), (max-height: 700px) {
+  .collapse:not(.show) {
+    display: none;
+  }
+  .collapsing {
+    position: relative;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.35s ease;
+  }
+}
+// ---------------ANGULAR-MATERIAL---------------
+@import "./assets/scss/material-tabs.scss";
+@import "./assets/scss/material-snackbar.scss";

@@ -1,0 +1,60 @@
+
+@use "sass:math";
+@function toEm($value) {
+    $emValue:  math.div($value, 16) + em;
+    @return $emValue;
+}
+
+ul {
+    column-gap: 24px;
+    row-gap: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+// -------------------------------------------
+@media (max-width: 1400px) {
+}
+@media (max-width: 1200px) {
+}
+// desktop version
+@media (min-width: 993px)  {
+    ul {
+   
+        li {
+            flex: 0 0 calc(25% - 18px);
+            max-width: calc(25% - 18px);
+        }
+    }
+}
+// mobile version
+@media (max-width: 992px) {
+    ul {
+   
+        li {
+            flex: 0 0 calc(33.333333% - 16px);
+            max-width: calc(33.333333% - 16px);
+        }
+    }
+
+}
+@media (max-width: 768px) {
+    ul {
+   
+        li {
+            flex: 0 0 calc(50% - 12px);
+            max-width: calc(50% - 12px);
+        }
+    }
+}
+@media (max-width: 576px) {
+    ul {
+ 
+        li {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+    }
+}
+@media (max-width: 357px) {
+}

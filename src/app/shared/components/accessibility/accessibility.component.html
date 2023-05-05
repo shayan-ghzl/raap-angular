@@ -1,0 +1,134 @@
+<div class="accessibility">
+    <span class="logo-container">
+        <a [routerLink]="['/home']">
+            <img src="assets/images/logo.png">
+        </a>
+    </span>
+    <app-search-form></app-search-form>
+    <div class="toolbar-container">
+        <button type="button" class="btn hamburger-btn" (click)="hamburgerPressed.emit()">
+            <i class="icon-hamburger-icon"></i>
+        </button>
+        <div class="mobile-hero-logo">
+            <span class="brand-face">
+                <img src="assets/images/logo.png">
+            </span>
+            <span class="brand-text">
+                <h2>RAAP</h2>
+                <span>spare parts</span>
+            </span>
+        </div>
+        <div class="popup-menus">
+            <div class="dropdown" appDropdown #dropdown1="exportDropdown">
+                <button class="btn dropdown-toggler" [appDropdownCtrl]="dropdown1">
+                    <i class="icon-basket-icon"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="entry-card-header">
+                        ورود به حساب کاربری
+                    </div>
+                    <div class="entry-form-container">
+                        <app-form-generator [formGroupTemplate]="formGenerator" [buttonLabel]="'ورود'"
+                            (submitHandler)="loginPopupFormSubmitHandler($event)"></app-form-generator>
+                        <p class="wrong-user-pass">
+                            <!-- <img src="svg-icon/invalid-icn.png"> -->
+                            <i class="icon-basket-icon"></i>
+                            نام کاربری یا رمز عبور صحیح نیست
+                        </p>
+                        <div class="registered">
+                            <span>کاربر جدید هستید ؟</span>
+                            <div>
+                                <a [routerLink]="['/login']">ثبت نام در راب یدک</a>
+                                <a [routerLink]="['/login']" class="btn btn-primary">ثبت نام</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" appDropdown #dropdown2="exportDropdown">
+                <button class="btn dropdown-toggler" [appDropdownCtrl]="dropdown2">
+                    <i class="icon-basket-icon"></i>
+                    <span class="basket-counter" *ngIf="productsList.length as count">{{count}}</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="basket-card-header">
+                        <span class="entry-title">مبلغ کل :</span>
+                        <div>
+                            <span class="total-price">64,740 تومان</span>
+                            <a [routerLink]="['/checkout']" class="btn btn-primary">مشاهده کل سبد</a>
+                        </div>
+                    </div>
+                    <div class="order-menu-container">
+                        <ul>
+                            <li *ngFor="let order of productsList">
+                                <span [routerLink]="['/product', order.id, order.goodPageUrl || '']" class="order-face">
+                                    <!-- <span [routerLink]="['/product']" [queryParams]="{id:order.id}" class="order-face"> -->
+                                    <img *ngIf="order.imageUrl as thumbnail;else noImage" [src]="thumbnail">
+                                    <ng-template #noImage>
+                                        <img src="assets/images/product-placeholder-small.png">
+                                    </ng-template>
+                                </span>
+                                <div class="order-text">
+                                    <a [routerLink]="['/product', order.id, order.goodPageUrl || '']" class="desc">{{order.goodName}}</a>
+                                    <!-- <ul class="category">
+                                        <li>
+                                            <a [routerLink]="['/home']">
+                                                گلگیر
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a [routerLink]="['/home']">
+                                                داشبورد
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a [routerLink]="['/home']">
+                                                کاپوت
+                                            </a>
+                                        </li>
+                                    </ul> -->
+                                    <div class="row-span">
+                                        <span class="price">{{order.finalPrice | iRCurrencyPipe}}</span>
+                                        <span class="count">{{order.count}}X</span>
+                                        <button type="button" class="btn trash" (click)="removeProduct(order)">
+                                            <i class="icon-trash-icon"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown" appDropdown #dropdown3="exportDropdown">
+                <button class="btn dropdown-toggler" [appDropdownCtrl]="dropdown3">
+                    <i class="icon-user-icon"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="user-card-header">
+                        <div>
+                            <span class="name">بهنام پیله ور</span>
+                            <a [routerLink]="['/profile']">
+                                مشاهده حساب کاربری
+                                <i class="icon-left-chevron"></i>
+                            </a>
+                        </div>
+                        <span>
+                            <img src="assets/images/kala.jpg">
+                        </span>
+                    </div>
+                    <div class="menu-container" *ngIf="userDropdownMenu.length">
+                        <ul>
+                            <li *ngFor="let menuItem of userDropdownMenu">
+                                <a [routerLink]="[menuItem.routerLink]">
+                                    <i [class]="menuItem.icon"></i>
+                                    {{menuItem.name}}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

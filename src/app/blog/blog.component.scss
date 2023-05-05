@@ -1,0 +1,191 @@
+@use "sass:math";
+@function toEm($value) {
+    $emValue:  math.div($value, 16) + em;
+    @return $emValue;
+}
+:host {
+    ul {
+        user-select: none;
+        display: flex;
+        flex-wrap: wrap;
+        li {
+            position: relative;
+        }
+    }
+}
+
+article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: hidden;
+    border-radius: toEm(20);
+    background-color: white;
+    box-shadow: 0 0 toEm(10) toEm(-3) grey;
+    &:hover {
+        .information {
+            bottom: 0 !important;
+            .author-datails {
+                transform: translateY(0) !important;
+            }
+        }
+
+        .article-datails {
+            .summary {
+                opacity: 1 !important;
+            }
+        }
+    }
+    .article-thumbnail {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .information {
+        position: absolute;
+        bottom: toEm(-87);
+        left: 0;
+        right: 0;
+        // height: toEm(100);
+        width: 100%;
+        background-color: var(--ion-color-secondary);
+        display: flex;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 1em;
+        transition: bottom 0.4s;
+        box-shadow: 0 toEm(3) toEm(10) #000;
+    }
+}
+.information {
+    display: flex;
+    color: var(--ion-color-light);
+    .author-datails {
+        padding-left: 1em;
+        transform: translateY(toEm(-87));
+        transition: transform 0.4s;
+    }
+    .article-datails {
+        flex-grow: 1;
+        padding-right: 1em;
+    }
+}
+.author-datails {
+    text-align: center;
+
+    .profile-picture {
+        margin: 0 auto;
+        display: block;
+        width: toEm(90);
+        height: toEm(90);
+        padding: toEm(8);
+        border-radius: 50%;
+        background-color: var(--ion-color-secondary);
+        img {
+            border-radius: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    .name {
+        font-size: toEm(12);
+        display: block;
+        max-width: toEm(150);
+        min-width: toEm(100);
+        font-weight: bold;
+    }
+}
+.article-datails {
+    border-right: 0.0625em solid rgba(var(--ion-color-light-rgb), 0.3);
+
+    > div {
+        display: flex;
+    }
+    .title {
+        font-size: 1.25em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        margin-left: 1em;
+    }
+    time {
+        white-space: nowrap;
+        margin-right: auto;
+        font-size: toEm(12);
+        margin-bottom: 0.5em;
+    }
+    .summary {
+        font-size: toEm(14);
+        margin-top: toEm(20);
+        margin-bottom: 1em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        white-space: normal;
+        opacity: 0;
+        transition: opacity 0.4s;
+    }
+}
+
+// -------------------------------------------
+@media (max-width: 1400px) {
+}
+// desktop version
+@media (min-width: 993px) and (min-height: 701px) {
+    :host {
+        ul {
+            gap: 2.5em;
+            font-size: 16px;
+            li {
+                flex: 0 0 calc(50% - 1.25em);
+                max-width: calc(50% - 1.25em);
+                padding-top: calc(28.125% - 0.703125em);
+            }
+        }
+    }
+}
+@media (max-width: 1200px) {
+    :host {
+        ul {
+            font-size: 14px;
+        }
+    }
+}
+// mobile version
+@media (max-width: 992px), (max-height: 700px) {
+    :host {
+        ul {
+            row-gap: 1.5em;
+            font-size: 13px;
+            li {
+                flex: 0 0 100%;
+                max-width: 100%;
+                padding-top: calc(56.25% - 1.40625em);
+            }
+        }
+    }
+}
+@media (max-width: 768px) {
+    :host {
+        ul {
+            font-size: 12px;
+        }
+    }
+}
+@media (max-width: 576px) {
+    :host {
+        ul {
+            font-size: 11px;
+        }
+    }
+}
+@media (max-width: 357px) {
+}

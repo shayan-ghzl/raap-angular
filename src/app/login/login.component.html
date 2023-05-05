@@ -1,0 +1,142 @@
+<div class="shadow-sm">
+    <div class="row-span">
+        <!-- <svg id="arrowRight" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path
+                d="M12.707 19.707l-1.414-1.414L16.586 13H4v-2h12.586l-5.293-5.293 1.414-1.414 7 7a1 1 0 010 1.414l-7 7z">
+            </path>
+        </svg> -->
+        <svg class="arrow-right" *ngIf="_formActive!=1" (click)="formActive=1">
+            <use xlink:href="#arrowRight"></use>
+        </svg>
+        <div class="hero-logo">
+            <span class="brand-face">
+                <img src="assets/images/logo.png">
+            </span>
+            <span class="brand-text">
+                <h2>RAAP</h2>
+                <span>spare parts</span>
+            </span>
+        </div>
+    </div>
+    <!-- -------------------------------------- -->
+    <!-- <app-form-generator *ngIf="_isMobile_formActive;else codeForm" [formGroupTemplate]="loginFormTemplate"
+        [buttonSpinnerSwitch]="buttonSpinnerSwitch" [buttonLabel]="'ورود'" (submitHandler)="submitHandler($event)">
+    </app-form-generator>
+    <ng-template #codeForm>
+        <app-form-generator [formGroupTemplate]="codeFormTemplate" [buttonSpinnerSwitch]="buttonSpinnerSwitch"
+            [buttonLabel]="'ادامه'" (submitHandler)="submitHandler($event)"></app-form-generator>
+    </ng-template> -->
+    <!-- -------------------------------------- -->
+    <form [formGroup]="signinFormGroup" (ngSubmit)="buttonSpinnerSwitch || submitHandler()" autocomplete="off">
+        <div class="form-fields-container">
+            <ng-container [ngSwitch]="_formActive">
+                <ng-container *ngSwitchCase="1">
+                    <div class="form-field">
+                        <label>لطفا شماره موبایل خود را وارد کنید:</label>
+                        <input class="form-control field-mobile" type="text" formControlName="mobileFormCtrl"
+                            autocomplete="off">
+                        <small class="invalid-feedback"
+                            *ngIf="signinFormGroup.controls['mobileFormCtrl'].invalid && signinFormGroup.controls['mobileFormCtrl'].touched">
+                            شماره موبایل نادرست است.
+                        </small>
+                    </div>
+                    <button type="submit"
+                        [disabled]="signinFormGroup.controls['mobileFormCtrl'].invalid || buttonSpinnerSwitch"
+                        class="btn btn-primary">
+                        <div *ngIf="buttonSpinnerSwitch;else spinnerOff" class="dots-container">
+                            <div class="dots"></div>
+                        </div>
+                        <ng-template #spinnerOff>
+                            ورود
+                        </ng-template>
+                    </button>
+                </ng-container>
+                <ng-container *ngSwitchCase="2">
+                    <div class="form-field">
+                        <label>کد تایید به شماره<strong class="message-number">{{codeSentTo}}</strong>ارسال شد</label>
+                        <input class="field-code" type="number" autocomplete="off" formControlName="codeFormCtrl"
+                            placeholder="XXXXXX">
+                        <small class="invalid-feedback"
+                            *ngIf="signinFormGroup.controls['codeFormCtrl'].invalid && signinFormGroup.controls['codeFormCtrl'].touched">
+                            کد صحیح نیست, دوباره تلاش کنید.
+                        </small>
+                    </div>
+                    <div class="accessibility">
+                        <span class="btn btn-link" (click)="formActive=3">
+                            ورود با رمز عبور
+                            <svg class="chevron-left">
+                                <use xlink:href="#chevronLeft"></use>
+                            </svg>
+                        </span>
+                        <ng-container
+                            *ngTemplateOutlet="scoopTemplate">
+                        </ng-container>
+                        <!-- <ng-container
+                            *ngTemplateOutlet="scoopTemplate;context:{remaining: (timer | countdown | async)}">
+                        </ng-container> -->
+                    </div>
+                    <ng-template #scoopTemplate>
+                        <p *ngIf="(stopTimer | async) != 'stop';else resendCodeScope" class="remaining-time">
+                            <strong id="remaining-counter"></strong>مانده تا دریافت مجدد کد
+                        </p>
+                        <ng-template #resendCodeScope>
+                            <p class="resend">
+                                دریافت مجدد کد از طریق
+                                <span class="btn btn-link" (click)="resendCode()">
+                                    پیامک
+                                    <svg class="chevron-left">
+                                        <use xlink:href="#chevronLeft"></use>
+                                    </svg>
+                                </span>
+                            </p>
+                        </ng-template>
+                    </ng-template>
+                    <button type="submit"
+                        [disabled]="signinFormGroup.controls['codeFormCtrl'].invalid || buttonSpinnerSwitch"
+                        class="btn btn-primary">
+                        <div *ngIf="buttonSpinnerSwitch;else spinnerOff" class="dots-container">
+                            <div class="dots"></div>
+                        </div>
+                        <ng-template #spinnerOff>
+                            ادامه
+                        </ng-template>
+                    </button>
+                </ng-container>
+                <ng-container *ngSwitchCase="3">
+                    <div class="form-field">
+                        <label>کلمه عبور را وارد نمایید</label>
+                        <div class="input-group-custom">
+                            <input class="form-control has-toggler" appPasswordToggle
+                                #exportPasswordToggle="exportPasswordToggle"
+                                [type]="(exportPasswordToggle.isShow) ? 'text' : 'password'" autocomplete="off"
+                                formControlName="passFormCtrl">
+                            <button type="button" class="btn password-toggler"
+                                [appPasswordToggleCtrl]="exportPasswordToggle">
+                                <i
+                                    [class]="(exportPasswordToggle.isShow) ? 'icon-password-show' : 'icon-password-hide'"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="accessibility">
+                        <span class="btn btn-link" (click)="oneTimePassword()">
+                            ورود با رمز یکبار مصرف
+                            <svg class="chevron-left">
+                                <use xlink:href="#chevronLeft"></use>
+                            </svg>
+                        </span>
+                    </div>
+                    <button type="submit"
+                        [disabled]="signinFormGroup.controls['passFormCtrl'].invalid || buttonSpinnerSwitch"
+                        class="btn btn-primary">
+                        <div *ngIf="buttonSpinnerSwitch;else spinnerOff" class="dots-container">
+                            <div class="dots"></div>
+                        </div>
+                        <ng-template #spinnerOff>
+                            ادامه
+                        </ng-template>
+                    </button>
+                </ng-container>
+            </ng-container>
+        </div>
+    </form>
+</div>

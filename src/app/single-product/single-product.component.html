@@ -1,0 +1,104 @@
+<section class="product-interface">
+    <div class="product-face">
+        <swiper (swiper)="onSwiper($event)" [config]="config">
+            <ng-template swiperSlide *ngFor="let thumbnail of product.goodImages">
+                <lib-ngx-image-zoom [zoomMode]="'toggle-click'" [thumbImage]="thumbnail.imageUrl"
+                    [fullImage]="thumbnail.imageUrl">
+                </lib-ngx-image-zoom>
+            </ng-template>
+            <ng-template swiperSlide *ngIf="product.goodImages.length==0">
+                <lib-ngx-image-zoom [zoomMode]="'toggle-click'" thumbImage="assets/images/product-placeholder.png"
+                    fullImage="assets/images/product-placeholder.png">
+                </lib-ngx-image-zoom>
+            </ng-template>
+        </swiper>
+        <div class="gallery" *ngIf="product.goodImages.length>1">
+            <ul>
+                <li *ngFor="let goodImage of product.goodImages;let index=index" (click)="swiper.slideTo(index)">
+                    <span>
+                        <img [src]="goodImage.imageUrl">
+                    </span>
+                </li>
+                <!-- <li class="active">
+                    <span>
+                        <img src="assets/images/kala.jpg">
+                    </span>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+    <div class="product-text">
+        <app-page-title>{{product.goodParent?.name}} {{product.brand?.name}}</app-page-title>
+        <div>
+            <div class="summery">
+                <p class="desc">
+                    {{product.description}}
+                </p>
+                <div class="metadata">
+                    <div>
+                        <ul>
+                            <li>کد فنی : {{product.technicalCode}}</li>
+                            <li>برند : <a href="#">ایساکو</a></li>
+                            <li>دسته بندی : <a href="#">بدنه</a></li>
+                        </ul>
+                    </div>
+                    <div *ngIf="product.stock>0 && product.stock<10" class="stock">
+                        <i class="icon-ringbell-icon"></i>
+                        <span>{{product.stock}} عدد در انبار باقیست.</span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculation">
+                <ng-container *ngIf="product.userGroupPrice && product.stock>0;else unavailable">
+                    <span class="item-price">
+                        <span class="discount-percentage" *ngIf="product.userGroupPrice.discount">
+                            <del>{{product.userGroupPrice.price | iRCurrencyPipe}}</del>
+                            <span class="badge">10%</span>
+                        </span>
+                        <ins>{{(product.userGroupPrice.price - product.userGroupPrice.discount) | iRCurrencyPipe}}</ins>
+                    </span>
+                    <div class="add-to-card">
+                        <button class="btn btn-primary" *ngIf="productCount==0;else addedBefore"
+                            (click)="productCount=1;addToBasket(1)">افزودن به سبد خرید</button>
+                        <ng-template #addedBefore>
+                            <app-product-counter [(ngModel)]="productCount" (ngModelChange)="addToBasket($event)"
+                                [romoveOnZero]="true">
+                            </app-product-counter>
+                        </ng-template>
+                    </div>
+                </ng-container>
+                <ng-template #unavailable>
+                    <span class="item-unavailable">
+                        <h5 class="supplying-title">
+                            <span>
+                                در‌حال تامین
+                            </span>
+                        </h5>
+                        <p>این کالا فعلا موجود نیست.</p>
+                    </span>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <mat-tab-group animationDuration="0ms" selectedIndex="0">
+    <mat-tab label="نقد و بررسی">
+        <h2>نقد و بررسی اجمالی</h2>
+        <h5>Optoma X343e UK Video Projector</h5>
+        <p>پروژکتور X343e UK ساخت شرکت Optoma دستگاهی است که با وضوح 768 × 1024 برای مصارف اداری، تجاری
+            و آموزشی طراحی شده است. وضوح فوق برای پخش اسناد متنی و اسلاید‌های پاورپوینت کافی است. اگرچه
+            دستگاه فوق قادر است ویدیو و بازی‌های کامپیوتری را هم پخش نماید، توصیه‌ می‌کنیم برای اهداف
+            تفریحی و سرگرمی به سراغ دستگاه‌هایی با وضوح بالاتر بروید. X343e UK می‌تواند تصویری در حداکثر
+            ابعاد 300 اینچ از فاصله‌ی 12 متری ایجاد کند. طول عمر لامپ در حالت پرنور برابر با 12.000ساعت
+            است اما در صورت استفاده از حالت‌های دیگر مانند Eco و Eco + این میزان تا 20.000 ساعت هم
+            می‌تواند افزایش یابد. پروژکتور X343e UK سازگاری خوبی با فناوری پخش 3بعدی هم دارد. برای راحتی
+            کاربر اسپیکری با قدرت پخش 10 وات در این مدل تعبیه شده است که در صورت نیاز می‌تواند برای پخش
+            صدای فایل‌های ویدیویی مورد استفاده قرار گیرد. دستگاه‌ از اتصالات متنوعی بهره می‌برد که در
+            میان آن‌‌ها می‌توان به پورت‌های HDMI و VGA اشاره کرد.</p>
+    </mat-tab>
+    <mat-tab label="نظرات کاربران">
+        <app-comments></app-comments>
+    </mat-tab>
+</mat-tab-group> -->
