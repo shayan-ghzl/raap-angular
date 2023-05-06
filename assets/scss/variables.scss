@@ -1,0 +1,82 @@
+:root {
+	--ion-color-primary: #fca206;
+	--ion-color-primary-rgb: 252,162,6;
+	--ion-color-primary-contrast: #000000;
+	--ion-color-primary-contrast-rgb: 0,0,0;
+	--ion-color-primary-shade: #de8f05;
+	--ion-color-primary-tint: #fcab1f;
+
+	--ion-color-secondary: #323234;
+	--ion-color-secondary-rgb: 50,50,52;
+	--ion-color-secondary-contrast: #ffffff;
+	--ion-color-secondary-contrast-rgb: 255,255,255;
+	--ion-color-secondary-shade: #2c2c2e;
+	--ion-color-secondary-tint: #474748;
+
+	--ion-color-tertiary: #5260ff;
+	--ion-color-tertiary-rgb: 82, 96, 255;
+	--ion-color-tertiary-contrast: #ffffff;
+	--ion-color-tertiary-contrast-rgb: 255, 255, 255;
+	--ion-color-tertiary-shade: #4854e0;
+	--ion-color-tertiary-tint: #6370ff;
+
+	--ion-color-success: #2dd36f;
+	--ion-color-success-rgb: 45, 211, 111;
+	--ion-color-success-contrast: #000000;
+	--ion-color-success-contrast-rgb: 0, 0, 0;
+	--ion-color-success-shade: #28ba62;
+	--ion-color-success-tint: #42d77d;
+
+	--ion-color-warning: #ffc409;
+	--ion-color-warning-rgb: 255, 196, 9;
+	--ion-color-warning-contrast: #000000;
+	--ion-color-warning-contrast-rgb: 0, 0, 0;
+	--ion-color-warning-shade: #e0ac08;
+	--ion-color-warning-tint: #ffca22;
+
+	--ion-color-danger: #eb445a;
+	--ion-color-danger-rgb: 235, 68, 90;
+	--ion-color-danger-contrast: #ffffff;
+	--ion-color-danger-contrast-rgb: 255, 255, 255;
+	--ion-color-danger-shade: #cf3c4f;
+	--ion-color-danger-tint: #ed576b;
+
+	--ion-color-medium: #92949c;
+	--ion-color-medium-rgb: 146, 148, 156;
+	--ion-color-medium-contrast: #000000;
+	--ion-color-medium-contrast-rgb: 0, 0, 0;
+	--ion-color-medium-shade: #808289;
+	--ion-color-medium-tint: #9d9fa6;
+
+	--ion-color-light: #f4f5f8;
+	--ion-color-light-rgb: 244, 245, 248;
+	--ion-color-light-contrast: #000000;
+	--ion-color-light-contrast-rgb: 0, 0, 0;
+	--ion-color-light-shade: #d7d8da;
+	--ion-color-light-tint: #f5f6f9;
+
+	--ion-color-dark: #000000;
+	--ion-color-dark-rgb: 0,0,0;
+	--ion-color-dark-contrast: #ffffff;
+	--ion-color-dark-contrast-rgb: 255,255,255;
+	--ion-color-dark-shade: #000000;
+	--ion-color-dark-tint: #1a1a1a;
+
+	--bs-font-sans-serif: Samim, "Samim";
+	--bs-font-monospace: monospace;
+	--bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+	--bs-body-font-family: var(--bs-font-sans-serif);
+	--bs-body-font-size: 1rem;
+	--bs-body-font-weight: 400;
+	--bs-body-line-height: 1.5;
+	--bs-body-color: #212529;
+	--bs-body-bg: #fff;
+
+	--bs-border-color: #000;
+	
+	// -------------------------
+	--raap-title-font: MjCasablanca, "MjCasablanca";
+}
+
+@media (prefers-color-scheme: dark) {
+}
