@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { filter, lastValueFrom, Observable, skip, take, tap } from 'rxjs';
+import { filter, lastValueFrom, take, tap } from 'rxjs';
 import { AppState } from 'src/app/state/app.state';
 import { LoginState } from 'src/app/state/reducers/identity.reducer';
 import { identitySelectorIsLoggedIn } from 'src/app/state/selectors/identity.selector';
-import { IdentityService } from '../services/identity.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ import { IdentityService } from '../services/identity.service';
 export class IsLoggedInGuard implements CanActivate {
 
   constructor(
-    private identityService: IdentityService,
+    // private identityService: IdentityService,
     private router: Router,
     private store: Store<AppState>
   ) { }

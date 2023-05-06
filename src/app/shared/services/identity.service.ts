@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { AppState } from 'src/app/state/app.state';
-import { Store } from '@ngrx/store';
-import { catchError, delay, of, take, tap, timeout } from 'rxjs';
+import { Injectable } from '@angular/core';
 import Cookies from 'js-cookie';
+import { catchError, of, take, tap, timeout } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -18,40 +16,21 @@ export class IdentityService {
 
   constructor(
     private http: HttpClient,
-    private store: Store<AppState>
   ) {
-    // console.log(DomHandler.resolveUserAgent());
-    // console.log(DomHandler.getBrowser());
-    // console.log(DomHandler.getUserAgent());
   }
 
-  verificationStartChallange(username: string) {
-    console.log('verificationStartChallange service');
-    return this.http.get<any>(environment.apiUrl + 'Users/VerificationStartChallange', { params: new HttpParams().append('username', username) }).pipe(
-      take(1),
+  verificationStartChallange(username: string, forceByCode = false) {
+    return this.http.get<any>(environment.apiUrl + 'Users/VerificationStartChallange', { params: new HttpParams().append('username', username).append('forceByCode', forceByCode) }).pipe(
       tap((value) => {
-        console.log(value, 'verificationStartChallange tap');
+        console.log(value);
         this.mobileNumber = value.data.id;
         this.verificationType = value.data.verificationType;
       }),
       timeout(15000),
-      // catchError((err, caught) => caught),
-      // catchError(err => {
-      //   console.log(err, 'catchError');
-      //   return of('An error occurred');
-      // })
     );
   }
 
   confirm(code: string) {
-    console.log({
-      "id": this.mobileNumber,
-      "verificationCode": code,
-      "verificationType": this.verificationType,
-      "ipAddress": "",
-      "expireDateTime": new Date(),
-      "message": ""
-    });
     return this.http.post<any>(environment.apiUrl + 'Users/Confirm', {
       "id": this.mobileNumber,
       "verificationCode": code,
@@ -63,39 +42,11 @@ export class IdentityService {
       take(1),
       tap((value) => { console.log(value, 'tap') }),
       timeout(15000),
-      // catchError((err, caught) => caught),
-      // catchError(err => {
-      //   console.log(err, 'catchError');
-      //   return of('An error occurred');
-      // })
-    );
-    // return of(1).pipe(
-    //   delay(3000),
-    //   take(1),
-    //   tap((value) => { console.log(value) }),
-    //   timeout(10000),
-    //   // catchError((err, caught) => caught),
-    //   // catchError(err => {
-    //   //   console.log(err, 'catchError');
-    //   //   return of('An error occurred');
-    //   // })
-    // );
-  }
-  loginByPassword(password: string) {
-    // let params = new HttpParams();
-    // for (const [key, value] of Object.entries(parameters)) {
-    //   params = params.append(key, value);
-    // }
 
-    // "username": "string",
-    // "password": "string",
-    // "parentBranchId": 0,
-    // "deviceName": "string",
-    // "deviceBrand": "string",
-    // "notificationToken": "string",
-    // "token": "string",
-    // "tokenType": "string",
-    // "smsCode": "string"
+    );
+  }
+
+  loginByPassword(password: string) {
     return this.http.post<any>(environment.apiUrl + 'Users/LoginByPassword', {
       'username': this.mobileNumber,
       'password': password
@@ -104,10 +55,7 @@ export class IdentityService {
     );
   }
 
-
   getCurrentUser() {
-    console.log('getCurrentUser called');
-    // let temp = localStorage.getItem('at');
     let temp = Cookies.get('at') ;
     if (temp) {
       return this.http.get<any>(environment.apiUrl + 'Users/GetCurrentUser',
@@ -118,7 +66,6 @@ export class IdentityService {
         }
       ).pipe(
         take(1),
-        // tap(console.log),
         timeout(15000),
         catchError(err => {
           console.log(err, 'catchError');
@@ -133,7 +80,6 @@ export class IdentityService {
 
 
 class DomHandler {
-
 
   private static browser: any;
 

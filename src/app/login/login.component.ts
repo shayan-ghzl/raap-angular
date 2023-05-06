@@ -3,12 +3,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { concatMap, finalize, map, Observable, of, Subject, Subscription, take, takeUntil, timer } from 'rxjs';
+import Cookies from 'js-cookie';
+import { Subject, Subscription, concatMap, finalize, map, of, take, takeUntil, timer } from 'rxjs';
 import { IdentityService } from '../shared/services/identity.service';
 import { identityActionIsLoggedIn } from '../state/actions/identity.action';
 import { AppState } from '../state/app.state';
 import { LoginState } from '../state/reducers/identity.reducer';
-import Cookies from 'js-cookie'
 
 class SixDigitFormControl extends FormControl {
   override setValue(value: any, options?: {
@@ -20,7 +20,6 @@ class SixDigitFormControl extends FormControl {
     switch (value?.toString().length) {
       case 6:
         super.setValue(value, options);
-        // this.disable({ emitEvent: false });
         break;
 
       case 7:
@@ -52,6 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     map(() => {
       if (this.timer < 0) {
         this.stopTimer.next('stop');
+        this.cd.detectChanges();
       }
       let minutes = Math.floor((this.timer % (1000 * 60 * 60)) / (1000 * 60));
       let seconds = Math.floor((this.timer % (1000 * 60)) / 1000);
@@ -59,39 +59,44 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
       return minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
     })
   );
-  countdownSubscription!: Subscription;
+
+  formSubscriptions = new Subscription();
+
   _formActive: FormStep = 1;
   set formActive(value: FormStep) {
+    this._formActive = value;
     if (value == FormStep.CODE) {
       let counter: HTMLElement | null = null;
-      this._formActive = value;
       this.stopTimer.next('start');
       this._ngZone.runOutsideAngular(() => {
-        this.countdownSubscription = this.countdown.subscribe({
-          next: (response) => {
+        this.formSubscriptions.add(
+          this.countdown.subscribe((response) => {
             if (counter) {
               counter.innerText = response;
+            } else {
+              counter = (this.host.nativeElement as HTMLElement).querySelector('#remaining-counter')!;
             }
-          }
-        });
+          })
+        );
+      });
+      this.formSubscriptions.add(
         this._ngZone.onStable.pipe(take(1)).subscribe(() => {
           counter = (this.host.nativeElement as HTMLElement).querySelector('#remaining-counter')!;
-        });
-      });
-    } else {
-      this._formActive = value;
-      this.countdownSubscription?.unsubscribe();
+        })
+      );
     }
-    this._ngZone.runOutsideAngular(() => {
+    this.formSubscriptions.add(
       this._ngZone.onStable.pipe(take(1)).subscribe(() => {
         let temp = (this.host.nativeElement as HTMLElement).querySelector('input')!;
         if (value != FormStep.USER) {
-          temp.value = '';
+          this.signinFormGroup.controls['passFormCtrl'].reset();
+          this.signinFormGroup.controls['codeFormCtrl'].reset();
         }
         temp.focus();
-      });
-    });
+      })
+    );
   }
+
   get formActive() {
     return this._formActive;
   }
@@ -112,7 +117,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     private host: ElementRef,
     private _ngZone: NgZone,
     private router: Router,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private cd: ChangeDetectorRef,
   ) { }
 
   ngAfterViewInit(): void {
@@ -152,7 +158,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           this.buttonSpinnerSwitch = true;
           return this.identityService.confirm(response);
         }
-        // return of(response);
         return of(0);
       })
     ).subscribe({
@@ -160,14 +165,11 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
         if (response) {
           if (response.issuccess) {
             this.store.dispatch(identityActionIsLoggedIn({ isLoggedIn: LoginState.REGISTERED }));
-            // localStorage.setItem('at', response.data.token);
             Cookies.set('at', response.data.token, { expires: 10, secure: true });
             this.router.navigateByUrl('/home');
-            console.log('%cDone', 'font-size:1rem;font-weight:bold;color:green');
-            this.signinFormGroup.controls['codeFormCtrl'].disable({ emitEvent: false });
-            // redirect here
           } else {
             this.signinFormGroup.controls['codeFormCtrl'].enable({ emitEvent: false });
+            this.signinFormGroup.controls['codeFormCtrl'].setErrors({ 'incorrect': true });
             this.buttonSpinnerSwitch = false;
             this.formActive = FormStep.CODE;
             this.openSnackBar('کد صحیح نیست, دوباره تلاش کنید.');
@@ -176,6 +178,8 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
 
       },
       error: (error) => {
+        this.signinFormGroup.controls['codeFormCtrl'].enable({ emitEvent: false });
+        this.signinFormGroup.controls['codeFormCtrl'].setErrors({ 'incorrect': true });
         this.buttonSpinnerSwitch = false;
         this.formActive = FormStep.CODE;
         this.openSnackBar('خطایی رخ داد, بعد از دقایقی دوباره امتحان کنید.');
@@ -220,27 +224,22 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           this.subscription.add(
             this.identityService.loginByPassword(this.signinFormGroup.controls['passFormCtrl'].value!).subscribe({
               next: (response) => {
-                console.log(response, 'FormStep.PASS');
-                console.log(response.issuccess);
                 if (response.issuccess) {
                   this.store.dispatch(identityActionIsLoggedIn({ isLoggedIn: LoginState.REGISTERED }));
-                  // localStorage.setItem('at', response.data.token);
                   Cookies.set('at', response.data.token, { expires: 10, secure: true });
                   this.router.navigateByUrl('/home');
-                  console.log('%cDone', 'font-size:1rem;font-weight:bold;color:green');
-                  // redirect here
                 } else {
                   this.signinFormGroup.controls['passFormCtrl'].enable({ emitEvent: false });
                   this.signinFormGroup.controls['passFormCtrl'].setErrors({ 'invalid': true });
                   this.formActive = FormStep.PASS;
                   this.buttonSpinnerSwitch = false;
-                  this.openSnackBar('کد صحیح نیست, دوباره تلاش کنید.');
+                  this.openSnackBar('رمز عبور صحیح نیست, دوباره تلاش کنید.');
                 }
               },
               error: (error) => {
+                console.log(error);
                 this.signinFormGroup.controls['passFormCtrl'].enable({ emitEvent: false });
                 this.buttonSpinnerSwitch = false;
-                console.log(error);
                 this.openSnackBar('خطایی رخ داد, بعد از دقایقی دوباره امتحان کنید.');
               }
             })
@@ -255,15 +254,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
           this.subscription.add(
             this.identityService.confirm(this.signinFormGroup.controls['codeFormCtrl'].value!).subscribe({
               next: (response) => {
-                console.log(response);
-                console.log(response.issuccess);
                 if (response.issuccess) {
                   this.store.dispatch(identityActionIsLoggedIn({ isLoggedIn: LoginState.REGISTERED }));
-                  // localStorage.setItem('at', response.data.token);
                   Cookies.set('at', response.data.token, { expires: 10, secure: true });
                   this.router.navigateByUrl('/home');
-                  console.log('%cDone', 'font-size:1rem;font-weight:bold;color:green');
-                  // redirect here
                 } else {
                   this.signinFormGroup.controls['codeFormCtrl'].enable({ emitEvent: false });
                   this.signinFormGroup.controls['codeFormCtrl'].setErrors({ 'invalid': true });
@@ -273,10 +267,9 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
                 }
               },
               error: (error) => {
-                // this.signinFormGroup.controls['codeFormCtrl'].setErrors({ 'invalid': true });
+                console.log(error);
                 this.signinFormGroup.controls['codeFormCtrl'].enable({ emitEvent: false });
                 this.buttonSpinnerSwitch = false;
-                console.log(error);
                 this.openSnackBar('خطایی رخ داد, بعد از دقایقی دوباره امتحان کنید.*');
               }
             })
@@ -288,14 +281,22 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   resendCode() {
+    if (this.buttonSpinnerSwitch) {
+      return;
+    }
+    this.buttonSpinnerSwitch = true;
     this.subscription.add(
-      this.identityService.verificationStartChallange(this.codeSentTo).subscribe({
-        next: (response,) => {
-          console.log(response, 'resendCode');
+      this.identityService.verificationStartChallange(this.codeSentTo).pipe(
+        finalize(() => {
+          console.log('resendCode finalize');
+          this.buttonSpinnerSwitch = false;
+          this.cd.detectChanges();
+        })
+      ).subscribe({
+        next: (response) => {
           this.timer = response.data.timerMS;
           this.codeSentTo = response.data.id
           this.formActive = (response.data.isPasswordSet) ? FormStep.PASS : FormStep.CODE;
-          // this.cd.markForCheck();
         },
         error: (error) => {
           console.log(error);
@@ -314,6 +315,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    this.formSubscriptions.unsubscribe();
     this.subscription.unsubscribe();
   }
 }

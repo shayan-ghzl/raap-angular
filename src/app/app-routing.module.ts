@@ -19,80 +19,65 @@ const routes: Routes = [
     path: 'home',
     component: HomeComponent
   },
-  {
-    path: 'archive',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: ArchiveComponent }
-    ]
-  },
-  {
-    path: 'profile',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: ProfileComponent }
-    ]
-  },
-  {
-    path: 'my-account',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: MyAccountComponent }
-    ]
-  },
-  {
-    path: 'post',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: SinglePostComponent }
-    ]
-  },
-  {
-    path: 'product/:id',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: SingleProductComponent, resolve: { product: ProductResolver } }
-    ]
-  },
-  {
-    path: 'product/:id/:seo',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: SingleProductComponent, resolve: { product: ProductResolver } }
-    ]
-  },
-  {
-    path: 'category',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: CategoryComponent }
-    ]
-  },
-  {
-    path: 'blog',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: BlogComponent }
-    ]
-  },
-  {
-    path: 'checkout',
-    component: LayoutComponent,
-    children: [
-      { path: '', component: CheckoutComponent }
-    ]
-  },
-  {
+    {
     path: 'login',
     component: LoginComponent,
     canActivate: [IsLoggedInGuard]
   },
-  { path: 'register', component: LoginComponent },
-  {
+    {
+    path: 'register',
+    component: LoginComponent,
+    canActivate: [IsLoggedInGuard]
+  },
+ {
     path: '',
-    redirectTo: '/home',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      {
+        path: 'checkout',
+        component: CheckoutComponent,
+      },
+      {
+        path: 'blog',
+        component: BlogComponent,
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
+      },
+      {
+        path: 'my-account',
+        component: MyAccountComponent,
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+      },
+      {
+        path: 'archive',
+        component: ArchiveComponent,
+      },
+      {
+        path: 'post',
+        component: SinglePostComponent,
+      },
+      {
+        path: 'product/:id',
+        component: SingleProductComponent,
+        resolve: { product: ProductResolver }
+      },
+      {
+        path: 'product/:id/:seo',
+        component: SingleProductComponent,
+        resolve: { product: ProductResolver }
+      },
+    ]
+  }
 ];
 
 @NgModule({
